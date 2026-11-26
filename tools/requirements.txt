@@ -1,0 +1,7 @@
+Pillow>=10
+blurhash-python>=1.2
+numpy>=1.26
+opencv-contrib-python-headless>=4.8,<5
+fonttools>=4.40
+brotli>=1.0
+# tests only (tools/qa_*.py): pip install playwright && playwright install chromium

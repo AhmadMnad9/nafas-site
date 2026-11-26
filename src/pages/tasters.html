@@ -1,0 +1,155 @@
+<!--meta {"title":"أول الذوّاقة | نَفَس","og_title":"مشتاق لأكل البيت؟ سجّل بأول الذوّاقة","desc":"سجّل بقائمة أول الذوّاقة بنَفَس، ومنخبرك أول ما يفتح مطبخ بيتي بحيّك بدمشق. منبلّش من المزة والبرامكة.","nav":"tasters","body_class":"tasters"} -->
+<section class="page-hero band tight" aria-labelledby="tasters-title">
+  <div class="wrap spread">
+    <div class="s-text">
+      <span class="kicker">أول الذوّاقة</span>
+      <h1 id="tasters-title">مشتاق لأكل البيت؟</h1>
+      <p class="lede">سجّل اسمك بقائمة «أول الذوّاقة»، ومنخبرك أول ما يفتح مطبخ بحيّك. ومن أول طبق، رأيك رح يفرق معنا.</p>
+      <div class="btn-row">
+        <a class="btn" href="#join">سجّل اسمك</a>
+        <a class="btn ghost" href="#know">شو لازم تعرف</a>
+      </div>
+    </div>
+    <div class="s-media">{{fig macaroni ratio="4x3" eager sizes="(min-width: 900px) 46vw, 100vw" caption="" pos="45% 50%" class="keep"}}</div>
+  </div>
+</section>
+
+<section class="band warm" aria-labelledby="perks-title">
+  <div class="wrap">
+    <div class="section-head"><h2 id="perks-title">شو بيعني تكون من أول الذوّاقة؟</h2></div>
+    <ul class="promises">
+      <li>{{icon_check}}<b>بتعرف قبل الكل</b><p>أول ما يفتح مطبخ بحيّك، منبعتلك رسالة على واتساب.</p></li>
+      <li>{{icon_check}}<b>ذوقك جاهز من أول طلب</b><p>يلي بتكتبه هون عن ذوقك منخليه عنا، لتلاقيه بملفك أول ما تبلّش تطلب.</p></li>
+      <li>{{icon_check}}<b>رأيك بيعمل المنيو</b><p>منسأل أول الذوّاقة شو الأطباق يلي مشتاقين إلها، ومنبلّش فيها.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band" id="know" aria-labelledby="know-title">
+  <div class="wrap">
+    <div class="section-head"><h2 id="know-title">كيف رح تطلب بالبداية</h2></div>
+    <ul class="offer">
+      <li><b>بتحجز قبل بوقت</b><p>الطبخ البيتي بدو وقت. بتحجز طبقك قبل، وبتستلمه سخن بالموعد.</p></li>
+      <li><b>بتستلم من مطبخ الطاهية</b><p>بالبداية ما في توصيل. بتستلم من مطبخها بحيّك، وعنوانها بيوصلك بعد قبول الطلب.</p></li>
+      <li><b>بتشوف طبقك قبل ما تدفع</b><p>الدفع كاش وقت الاستلام. وإذا الطبق مو متل ما طلبت، خبّرنا ونحنا منحلّها.</p></li>
+      <li><b>ذوقك بيوصل مع كل طلب</b><p>ملح خفيف، بلا بصل، حرّ زيادة. بتكتب ذوقك مرة، وبتغيّره وقت ما بدك.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band warm" id="join" aria-labelledby="join-title">
+  <div class="wrap form-wrap">
+    <div>
+      <h2>سجّل، ونحنا منخبرك</h2>
+      <p class="lede" style="margin-top:14px">التسجيل ببلاش وما بيلزمك بشي. بس بيخلّينا نعرف وين نبلّش، وشو الأطباق يلي الناس مشتاقة إلها.</p>
+      <p class="handnote">على ذوقك، مو على ذوق المطعم.</p>
+    </div>
+    <div class="form">
+      <form name="tasters" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-wa="taster" novalidate>
+        <input type="hidden" name="from">
+        <p class="hp" hidden><label>اترك هالحقل فاضي: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form-fields">
+          <h2 id="join-title" style="font-size:1.75rem">سجّل بأول الذوّاقة</h2>
+          <p class="muted" style="margin:8px 0 26px">دقيقة وحدة، ومنتواصل معك على واتساب.</p>
+          <div class="field">
+            <label for="t-name">اسمك</label>
+            <input class="input" id="t-name" name="name" autocomplete="given-name" required>
+            <span class="err">اكتب اسمك لنعرف مين عم نحكي.</span>
+          </div>
+          <div class="field">
+            <label for="t-phone">رقم موبايلك (عليه واتساب)</label>
+            <input class="input tel" id="t-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" required>
+            <span class="err">اكتب رقم سوري متل 0912345678.</span>
+          </div>
+          <fieldset class="field">
+            <legend>وين ساكن؟</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="hood" value="المزة"><span>المزة</span></label>
+              <label class="opt"><input type="radio" name="hood" value="البرامكة"><span>البرامكة</span></label>
+              <label class="opt"><input type="radio" name="hood" value="other"><span>حي تاني</span></label>
+            </div>
+            <span class="err">اختار حيّك.</span>
+          </fieldset>
+          <div class="field" hidden>
+            <label for="t-hood">أي حي؟</label>
+            <input class="input" id="t-hood" name="hood_other" data-other>
+            <span class="err">اكتب اسم الحي.</span>
+          </div>
+          <fieldset class="field">
+            <legend>شو مشتاق تاكل؟ <span class="hint">اختار قد ما بدك.</span></legend>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="miss" value="يالنجي"><span>يالنجي</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="كبة"><span>كبة</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="محشي"><span>محشي</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="شيخ المحشي"><span>شيخ المحشي</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="مقلوبة"><span>مقلوبة</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="ملوخية"><span>ملوخية</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="فتة"><span>فتة</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="شاكرية"><span>شاكرية</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="كباب هندي"><span>كباب هندي</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="شيش برك"><span>شيش برك</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="كباب باذنجان"><span>كباب باذنجان</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="شيش بالفخارة"><span>شيش بالفخارة</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="كبة لبنية"><span>كبة لبنية</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="مجدرة"><span>مجدرة</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="حرّاق إصبعو"><span>حرّاق إصبعو</span></label>
+              <label class="opt"><input type="checkbox" name="miss" value="فاصوليا بالزيت"><span>فاصوليا بالزيت</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>قديش بتطلب أكل من برّا؟ <span class="hint">اختياري.</span></legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="freq" value="نادراً"><span>نادراً</span></label>
+              <label class="opt"><input type="radio" name="freq" value="مرة بالأسبوع"><span>مرة بالأسبوع</span></label>
+              <label class="opt"><input type="radio" name="freq" value="مرتين أو تلاتة بالأسبوع"><span>مرتين أو تلاتة بالأسبوع</span></label>
+              <label class="opt"><input type="radio" name="freq" value="كل يوم تقريباً"><span>كل يوم تقريباً</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="t-budget">قديش بتدفع عادة بوجبة الغدا من برّا؟ <span class="hint">اختياري، بالليرة الجديدة.</span></label>
+            <input class="input short" id="t-budget" name="budget" inputmode="numeric" autocomplete="off">
+          </div>
+          <fieldset class="field">
+            <legend>إذا المطبخ على بعد 10 دقايق مشي منك، بتروح تستلم طلبك؟ <span class="hint">اختياري.</span></legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="pickup" value="أكيد"><span>أكيد</span></label>
+              <label class="opt"><input type="radio" name="pickup" value="حسب الطبخة"><span>حسب الطبخة</span></label>
+              <label class="opt"><input type="radio" name="pickup" value="لأ، بدي توصيل"><span>لأ، بدي توصيل</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="t-taste">ذوقك بكلمتين <span class="hint">اختياري. متل: ملح خفيف، بلا كزبرة، بحب الحامض. ما تكتب هون معلومات صحية.</span></label>
+            <input class="input" id="t-taste" name="taste">
+          </div>
+          <div class="field">
+            <label class="consent"><input type="checkbox" name="consent" value="yes" required><span>بوافق إنو «نَفَس» تتواصل معي على هالرقم بخصوص الإطلاق ورأيي بالأطباق.</span></label>
+            <span class="err">لازم توافق لنقدر نخبرك.</span>
+          </div>
+          <button class="btn" type="submit">جهّز الرسالة لواتساب</button>
+          <p class="form-note">معلوماتك بتنحفظ عنا وبتوصلنا على واتساب، وما منشاركها مع حدا. <a href="privacy.html">سياسة الخصوصية</a></p>
+        </div>
+      </form>
+      <div class="done" aria-live="polite">
+        <h3>تمام! باقي خطوة وحدة</h3>
+        <p>افتح واتساب وابعت الرسالة، وهيك بتصير من أول الذوّاقة.</p>
+        <div class="btn-row"><a class="btn" data-wa-link href="https://wa.me/{{wa_digits}}">{{icon_wa}}افتح واتساب وابعت</a></div>
+        <pre class="msg-preview" data-preview></pre>
+        <div class="btn-row" style="gap:20px"><button class="linkish" type="button" data-copy>انسخ الرسالة</button><button class="linkish" type="button" data-edit>عدّل المعلومات</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-head"><h2 id="faq-title">أسئلة بتخطر عبالك</h2></div>
+    <div class="faq">
+      <details><summary>إيمتى بتفتحوا؟</summary><p>عم نتعرّف هلّق على أول الطاهيات بالمزة والبرامكة. أول ما يفتح مطبخ بحيّك، منبعتلك رسالة.</p></details>
+      <details><summary>في توصيل؟</summary><p>بالبداية لأ. بتستلم طلبك من مطبخ الطاهية بحيّك، وعنوانها بيوصلك بعد ما تقبل الطلب.</p></details>
+      <details><summary>قديش الأسعار؟</summary><p>كل طاهية بتحدد أسعار أطباقها والتعديلات يلي بتقبلها، وبتشوف السعر كامل قبل ما تحجز.</p></details>
+      <details><summary>كيف بدفع؟</summary><p>كاش وقت الاستلام، بعد ما تشوف طبقك.</p></details>
+      <details><summary>شو بتعملوا بمعلوماتي؟</summary><p>منستعملها بس لنخبرك بالإطلاق ونسألك رأيك، وما منشاركها مع حدا. التفاصيل <a href="privacy.html">بسياسة الخصوصية</a>.</p></details>
+      <details><summary>ساكن برّا المزة والبرامكة؟</summary><p>سجّل كمان. حيّك بيساعدنا نعرف لوين نروح بعدين.</p></details>
+    </div>
+  </div>
+</section>

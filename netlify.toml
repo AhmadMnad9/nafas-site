@@ -1,0 +1,5 @@
+# dist/ is built by tools/build.py and committed with every change,
+# so Netlify only publishes it and runs no build of its own.
+[build]
+  publish = "dist"
+  command = "echo 'dist/ is prebuilt by tools/build.py'"

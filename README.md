@@ -1,0 +1,80 @@
+# «نَفَس»: مصدر الموقع
+
+موقع «نَفَس» في دمشق. المصدر في `src/`، والموقع المبني في `dist/`، وNetlify ينشر `dist/` كما هو.
+
+## البنية
+
+```
+src/
+  pages/        صفحات الموقع (محتوى كل صفحة، مع العنوان والوصف في أولها)
+  partials/     الرأس والترويسة والتذييل المشتركة
+  css/ js/      التنسيق والسلوك (ملف واحد لكل منهما)
+  fonts/        Cairo و Aref Ruqaa بصيغة woff2
+  brand/        الشعار بصيغة SVG
+  static/       الأيقونات وصورة المشاركة og.jpg
+  photos.json   سجل الصور: المقاس، اللون، النص البديل، ومصدر الصورة
+  photos/       الصور الأصلية للموقع، و<slug>.edit.json لكل صورة عدّلها الأجنت
+  dishes.json   معرض «من مطبخ الشام» في الصفحة الرئيسية
+originals/      الصور كما وصلت قبل التعديل، لإعادة التعديل لاحقاً
+tools/
+  build.py      يبني الموقع من src إلى dist
+  dish_photo.py يعدّل صورة طبق (إضاءة، ألوان، قص قريب، خلفية ناعمة)
+  add_dish.py   يضيف الصورة المعدّلة إلى المعرض
+  qa_*.py       اختبارات المتصفح
+  models/       نموذج صغير لتكبير الصور الصغيرة مرتين (FSRCNN)
+dist/           الموقع المبني، ويُرفع مع كل تعديل
+```
+
+## البناء
+
+```bash
+pip install -r tools/requirements.txt
+python3 tools/build.py
+python3 tools/build.py --site-url https://YOUR-SITE.netlify.app/   # بعد معرفة الرابط، لتظهر صورة المشاركة
+# أو اكتب الرابط مرة واحدة في src/site-url.txt فيستعمله كل بناء
+```
+
+ملف المتطلبات داخل `tools/` عمداً: لو كان في جذر المستودع لحاول Netlify تثبيته مع كل نشر.
+
+## أجنت صور الأطباق
+
+1. تصل صورة طبق مع اسمه ووصف قصير، واسم المطبخ إن كانت من طاهية في «نَفَس».
+2. `python3 tools/dish_photo.py PHOTO --slug SLUG --focus CX,CY,RX,RY [...]` يعدّل الصورة ويكتب مقارنة «قبل/بعد» في `work/`.
+3. بعد الموافقة: `python3 tools/add_dish.py --slug SLUG --name "..." --desc "..." [--cook "..."]` ثم `python3 tools/build.py`.
+4. يُرفع التعديل إلى فرع `queue`. عند «انشر» يُدمج `queue` في `main`، فينشر Netlify مرة واحدة.
+
+القاعدة: التعديل يغيّر الضوء واللون والقص وخلفية ما حول الطبق فقط. الأكل نفسه لا يُرسم من جديد، ولا يُضاف إليه أو يُحذف منه شيء، لأن الزبون يستلم الطبق الحقيقي.
+
+## النشر على Netlify
+
+- `netlify.toml` يجعل Netlify ينشر `dist/` من دون بناء.
+- يُنشر فرع `main` فقط. كل نشر يكلّف 15 رصيداً من 300 في الخطة المجانية، لذلك تُجمع التعديلات في `queue`.
+- النماذج: من Netlify اختر Forms ثم Enable form detection، وأعد النشر مرة.
+
+## النماذج ومصدر الزيارة
+
+- النموذجان في `cooks.html` و`tasters.html` يحملان `data-netlify="true"` واسماً (`cooks`، `tasters`)، وحقلاً مخفياً `from` وفخّاً `bot-field`.
+- عند الإرسال يرسل `site.js` نسخة إلى Netlify (`POST /` بصيغة urlencoded مع `form-name`) ثم يجهّز رسالة واتساب.
+- أسماء الحقول المرسلة يجب أن تطابق أسماءها في HTML، لأن Netlify يقرأ النموذج من HTML وقت النشر.
+- المصدر: `?from=` (أو `utm_source`) يُحفظ في `localStorage` باسم `nafas-from`، وإلا اسم الموقع المُحيل `ref:<host>`.
+
+## الصور
+
+- صورة لها ملف في `src/photos` يحوّلها البناء إلى WebP بعدة مقاسات.
+- `"source": "own"` صورة خاصة بالمشروع: لا يُكتب تحتها اسم مصوّر، ويتوقف البناء إذا لم يجد ملفها.
+- غير ذلك تُحمَّل من Unsplash مع اسم المصوّر (اليوم: `damascus-souq` فقط).
+- جملة الصور في صفحة «من نحن» تُحسب من `dishes.json`: إذا ظهرت أطباق من مطابخ الطاهيات، تتغيّر الجملة وحدها.
+
+## الاختبارات
+
+```bash
+python3 -m http.server 8766 --directory dist &
+python3 tools/qa_interact.py        # القوائم والنماذج ورسالة واتساب
+python3 tools/qa_forms_save.py      # حفظ النماذج ومصدر الزيارة
+python3 tools/qa_shots.py index.html,cooks.html 390x844,1280x800   # عرض الصفحات وأخطاء المتصفح
+```
+تحتاج `pip install playwright && playwright install chromium`.
+
+## رقم واتساب
+
+في `tools/build.py` (المتغيّران `WA_DIGITS` و `WA_PRETTY`).

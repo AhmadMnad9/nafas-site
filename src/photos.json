@@ -1,0 +1,125 @@
+{
+  "hero-hands": {
+    "source": "own",
+    "w": 1774,
+    "h": 2300,
+    "color": "#0e0d0f",
+    "alt": "إيدين عم تلف ورقة عنب فوق طنجرة يالنجي مرصوفة",
+    "caption": "يالنجي، رصفة رصفة.",
+    "credit": ""
+  },
+  "damascus-souq": {
+    "id": "yM5eqzbmH0E",
+    "raw": "https://images.unsplash.com/photo-1645740262380-d86b597b90c4?ixid=M3wxMDE3MjIwfDB8MXxzZWFyY2h8Mnx8RGFtYXNjdXN8ZW58MHx8fHwxNzk1NDU4MDI1fDI&ixlib=rb-4.1.0",
+    "w": 9112,
+    "h": 6834,
+    "color": "#262626",
+    "blurhash": "LLA,I4WVjEayIpkBozWV0MoLkCjZ",
+    "alt": "سوق الحميدية بدمشق القديمة والناس ماشيين تحت سقفه",
+    "caption": "سوق الحميدية، دمشق",
+    "credit": "Mahmoud Sulaiman",
+    "user": "mahmoud_ms1"
+  },
+  "kebab-hindi": {
+    "id": "own-kebab-hindi",
+    "source": "own",
+    "w": 1046,
+    "h": 785,
+    "color": "#7a2a18",
+    "alt": "صينية كباب هندي، أصابع كفتة بصلصة البندورة مع صنوبر ومعلقة",
+    "caption": "كباب هندي",
+    "credit": "صورة خاصة، بإذن صاحبها"
+  },
+  "yalanji-home": {
+    "id": "own-yalanji",
+    "source": "own",
+    "w": 488,
+    "h": 459,
+    "color": "#3a3f2a",
+    "alt": "صحن ورق عنب ملفوف بالبيت، مع راسين توم",
+    "caption": "ورق عنب",
+    "credit": "صورة خاصة، بإذن صاحبها"
+  },
+  "macaroni": {
+    "id": "own-macaroni",
+    "source": "own",
+    "w": 800,
+    "h": 563,
+    "color": "#d8c9a8",
+    "alt": "صينية معكرونة بالفرن، وجهها جبنة محمّرة ومقطوعة منها قطعة",
+    "caption": "معكرونة بالفرن",
+    "credit": "صورة خاصة، بإذن صاحبها"
+  },
+  "yalanji-plate": {
+    "source": "own",
+    "w": 762,
+    "h": 572,
+    "color": "#3b3a28",
+    "alt": "صحن ورق عنب ملفوف مع راسين توم وشرحات ليمون",
+    "caption": "ورق عنب",
+    "credit": ""
+  },
+  "shish-barak": {
+    "source": "own",
+    "w": 762,
+    "h": 572,
+    "color": "#d9cfb8",
+    "alt": "فخارة شيش بالفرن: دجاج بصلصة بيضا وجبنة محمّرة، وجنبها صحن رز",
+    "caption": "شيش بالفخارة",
+    "credit": ""
+  },
+  "kofta-tray": {
+    "source": "own",
+    "w": 762,
+    "h": 572,
+    "color": "#5a2a1c",
+    "alt": "صينية كفتة بالفرن ووجّها شرحات بندورة، وجنبها متبّل وخبز",
+    "caption": "كفتة بالصينية",
+    "credit": ""
+  },
+  "rice-lamb": {
+    "source": "own",
+    "w": 762,
+    "h": 572,
+    "color": "#d8ccb6",
+    "alt": "صدر رز بشعيرية عليه لحمة ولوز محمّص",
+    "caption": "رز ع لحمة",
+    "credit": ""
+  },
+  "chicken-tray": {
+    "source": "own",
+    "w": 762,
+    "h": 572,
+    "color": "#8a5a2a",
+    "alt": "صينية دجاج بالفرن مع بطاطا وبندورة وفليفلة",
+    "caption": "صينية دجاج",
+    "credit": ""
+  },
+  "veg-tray": {
+    "source": "own",
+    "w": 762,
+    "h": 572,
+    "color": "#3a2a20",
+    "alt": "صينية كباب باذنجان بالفرن مع فليفلة وبندورة",
+    "caption": "كباب باذنجان",
+    "credit": ""
+  },
+  "kibbeh-hands": {
+    "source": "own",
+    "w": 1672,
+    "h": 941,
+    "color": "#1a1210",
+    "alt": "إيدين عم تكوّر كبة، وجنبها برغل وبقدونس وصنوبر وصينية كبب جاهزة",
+    "caption": "",
+    "credit": ""
+  },
+  "harraq-spread": {
+    "source": "own",
+    "w": 1672,
+    "h": 941,
+    "color": "#62533b",
+    "alt": "عدس بني وعجين ودبس رمان وبصل مقلي وثوم وكزبرة على طاولة خشب",
+    "caption": "غراض حرّاق إصبعو. كل شي بيبلّش من هون.",
+    "credit": ""
+  }
+}

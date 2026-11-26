@@ -1,0 +1,43 @@
+{
+  "_note": "Homepage gallery «من مطبخ الشام». Edited with tools/add_dish.py. kind: real = a real photo of a real dish, illustrative = a stand-in. cook (optional) = the Nafas kitchen it came from.",
+  "max": 6,
+  "sizes": "(min-width: 900px) 30vw, 46vw",
+  "dishes": [
+    {
+      "slug": "shish-barak",
+      "name": "شيش بالفخارة",
+      "desc": "دجاج متبّل وبطاطا وفطر، بصلصة بيضا وجبنة",
+      "kind": "illustrative"
+    },
+    {
+      "slug": "kebab-hindi",
+      "name": "كباب هندي",
+      "desc": "أصابع كفتة بصلصة البندورة",
+      "kind": "real"
+    },
+    {
+      "slug": "rice-lamb",
+      "name": "رز ع لحمة",
+      "desc": "رز بشعيرية، ولحمة، ولوز محمّص",
+      "kind": "illustrative"
+    },
+    {
+      "slug": "kofta-tray",
+      "name": "كفتة بالصينية",
+      "desc": "كفتة بالفرن، ووجّها شرحات بندورة",
+      "kind": "illustrative"
+    },
+    {
+      "slug": "chicken-tray",
+      "name": "صينية دجاج",
+      "desc": "دجاج وبطاطا وخضرة بالفرن",
+      "kind": "illustrative"
+    },
+    {
+      "slug": "veg-tray",
+      "name": "كباب باذنجان",
+      "desc": "أكلة حلبية: كباب وباذنجان وفليفلة بالفرن",
+      "kind": "illustrative"
+    }
+  ]
+}
