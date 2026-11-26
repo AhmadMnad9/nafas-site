@@ -126,15 +126,36 @@ def dishes_markup():
                      f'<h3>{html.escape(d["name"])}</h3><p>{html.escape(d["desc"])}</p>{cook}</li>')
     return '<ul class="dishes">\n' + "\n".join(items) + "\n    </ul>"
 
+def gallery_cards():
+    return DISHES["dishes"][: DISHES.get("max", 6)]
+
 def about_photos_note(remote_slugs):
     """Keep the About page's sentence about photos true to what the site shows."""
-    from_cooks = any(d.get("cook") for d in DISHES["dishes"])
-    first = ("صور الأطباق يلي تحتها اسم مطبخ هي من مطابخ طاهياتنا، ومعدّلة بالإضاءة والألوان بس. وباقي الصور للتوضيح."
-             if from_cooks else "الصور بالموقع للتوضيح، ومو من مطابخ طاهياتنا.")
-    unsplash = ("وصورة السوق من Unsplash، واسم مصوّرها تحت." if remote_slugs == ["damascus-souq"]
-                else "والصور يلي من Unsplash، أسماء مصوّريها تحت." if remote_slugs else "")
-    last = "" if from_cooks else "صور طاهياتنا وأطباقهن الحقيقية رح تنزل لما نبلّش."
-    return " ".join(x for x in (first, unsplash, last) if x)
+    cards = gallery_cards()
+    from_cooks = any(d.get("cook") for d in cards)
+    ai = any(d.get("ai") for d in cards)
+    parts = []
+    if from_cooks:
+        parts.append("صور الأطباق يلي تحتها اسم مطبخ هي من مطابخ طاهياتنا"
+                     + ("." if ai else "، ومعدّلة بالإضاءة والألوان بس."))
+        parts.append("وباقي الصور للتوضيح.")
+    else:
+        parts.append("الصور بالموقع للتوضيح، ومو من مطابخ طاهياتنا.")
+    if ai:
+        parts.append("وفي صور أطباق معدّلة الزاوية بالذكاء الصنعي، من صورة حقيقية للطبق نفسه.")
+    if remote_slugs == ["damascus-souq"]:
+        parts.append("وصورة السوق من Unsplash، واسم مصوّرها تحت.")
+    elif remote_slugs:
+        parts.append("والصور يلي من Unsplash، أسماء مصوّريها تحت.")
+    if not from_cooks:
+        parts.append("صور طاهياتنا وأطباقهن الحقيقية رح تنزل لما نبلّش.")
+    return " ".join(parts)
+
+def photo_promise():
+    """The homepage promise about dish photos, true whether or not some are AI-angled."""
+    if any(d.get("ai") for d in gallery_cards()):
+        return "وصور الأطباق من أطباقها الحقيقية."
+    return "ومنصوّر الأطباق متل ما هي."
 
 # ---------------------------------------------------------------- templating
 ATTR = re.compile(r'(\w+)(?:="([^"]*)")?')
@@ -182,6 +203,7 @@ def main():
     base = dict(
         v=v, wordmark=wordmark, wa_digits=WA_DIGITS, wa_pretty=WA_PRETTY, site_url=SITE_URL,
         about_photos_note=about_photos_note(remote_slugs),
+        photo_promise=photo_promise(),
         icon_wa=ICONS["wa"], icon_check=ICONS["check"], icon_home=ICONS["home"], icon_eye=ICONS["eye"], icon_lock=ICONS["lock"],
         photos_note=(f"<li>الصور: تُحمَّل {some} من خدمة Unsplash، وقد ترى هذه الخدمة عنوان IP الخاص بك عند تحميل هذه الصور.</li>" if remote else ""),
     )

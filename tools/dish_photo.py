@@ -25,6 +25,12 @@ options (all optional; the defaults suit most phone photos)
   --clarity 0.3        local contrast (texture), 0..1
   --vignette 0.16      darker edges, 0..0.5
   --width 2000         longest output side in pixels (smaller photos are upscaled 2x first)
+  --preset ai          gentle settings for a photo already re-shot with AI (new angle, light and
+                       depth of field done): whole frame, no extra blur, a light finish only.
+                       Any option given on the command line still wins.
+  --before PHOTO       the photo to show as «قبل» in the comparison, when PHOTO itself is not
+                       the original (for an AI re-shot, pass the real photo it was made from).
+                       It is also the one kept in originals/.
 
 writes
   src/photos/<slug>.jpg         the edited photo (the build makes the WebP sizes)
@@ -61,6 +67,21 @@ def norm01(x):
 def load_rgb(path):
     im = ImageOps.exif_transpose(Image.open(path)).convert("RGB")
     return np.asarray(im).astype(np.float32) / 255.0
+
+
+def trim_bars(rgb):
+    """Cut the flat black or white bars a phone screenshot leaves around a photo."""
+    lum = rgb.mean(axis=2)
+    def keep(mean, std):
+        flat = ((mean < 0.06) | (mean > 0.97)) & (std < 0.03)
+        idx = np.where(~flat)[0]
+        return (int(idx[0]), int(idx[-1]) + 1) if len(idx) else (0, len(mean))
+    t, b = keep(lum.mean(axis=1), lum.std(axis=1))
+    l, r = keep(lum.mean(axis=0), lum.std(axis=0))
+    h, w = lum.shape
+    if (b - t) < 0.1 * h or (r - l) < 0.1 * w:      # nothing sensible left: leave it alone
+        return rgb
+    return rgb[t:b, l:r]
 
 
 def lab_of(rgb):
@@ -244,8 +265,9 @@ def compare_sheet(orig, box, result, path):
     ox = pad * 2 + cell_w + (cell_w - o.width) // 2
     oy = top + (cell_h - o.height) // 2
     sheet.paste(o, (ox, oy))
-    x0, y0, bw, bh = box
-    draw.rectangle([ox + x0 * s, oy + y0 * s, ox + (x0 + bw) * s, oy + (y0 + bh) * s], outline=CORAL, width=3)
+    if box:
+        x0, y0, bw, bh = box
+        draw.rectangle([ox + x0 * s, oy + y0 * s, ox + (x0 + bw) * s, oy + (y0 + bh) * s], outline=CORAL, width=3)
     r = Image.fromarray((result * 255).astype(np.uint8))
     s2 = min(cell_w / r.width, cell_h / r.height)
     r = r.resize((int(r.width * s2), int(r.height * s2)), Image.LANCZOS)
@@ -260,8 +282,15 @@ def compare_sheet(orig, box, result, path):
 
 
 # ---------- main
+PRESETS = {
+    "ai": dict(focus="0.5,0.5,0.5,0.5", tight=1.0, blur=0.0, vignette=0.06, clarity=0.12, vibrance=0.04,
+               shadows=0.08, wb=0.25, warmth=0.5, contrast=0.6),
+}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--preset", choices=sorted(PRESETS))
     ap.add_argument("photo")
     ap.add_argument("--slug", required=True)
     ap.add_argument("--focus")
@@ -277,10 +306,14 @@ def main():
     ap.add_argument("--clarity", type=float, default=0.3)
     ap.add_argument("--vignette", type=float, default=0.16)
     ap.add_argument("--width", type=int, default=2000)
+    ap.add_argument("--before")
+    pre, _ = ap.parse_known_args()
+    if pre.preset:
+        ap.set_defaults(**PRESETS[pre.preset])
     o = ap.parse_args()
 
     src = Path(o.photo)
-    rgb = load_rgb(src)
+    rgb = trim_bars(load_rgb(src))
     H, W = rgb.shape[:2]
     focus = tuple(float(v) for v in o.focus.split(",")) if o.focus else auto_focus(rgb)
     x0, y0, bw, bh = crop_box(W, H, focus, o.tight)
@@ -314,16 +347,21 @@ def main():
     (ROOT / "work").mkdir(exist_ok=True)
     out_path = photos / f"{o.slug}.jpg"
     Image.fromarray((out * 255).astype(np.uint8)).save(out_path, quality=92, optimize=True, progressive=True)
-    keep = ROOT / "originals" / f"{o.slug}{src.suffix.lower() or '.jpg'}"
-    if src.resolve() != keep.resolve():
-        shutil.copyfile(src, keep)
+    real = Path(o.before) if o.before else src
+    keep = ROOT / "originals" / f"{o.slug}{real.suffix.lower() or '.jpg'}"
+    if real.resolve() != keep.resolve():
+        shutil.copyfile(real, keep)
     compare = ROOT / "work" / f"{o.slug}-compare.jpg"
-    compare_sheet(rgb, (x0, y0, bw, bh), out, compare)
+    if o.before:
+        compare_sheet(trim_bars(load_rgb(real)), None, out, compare)
+    else:
+        compare_sheet(rgb, (x0, y0, bw, bh), out, compare)
 
-    settings = {k: getattr(o, k) for k in ("shape", "tight", "blur", "warmth", "wb", "exposure",
+    settings = {k: getattr(o, k) for k in ("preset", "shape", "tight", "blur", "warmth", "wb", "exposure",
                                           "contrast", "shadows", "vibrance", "clarity", "vignette", "width")}
     record = {
         "source": keep.name, "source_size": [W, H],
+        "edited_from": src.name if o.before else None,
         "focus": [round(v, 4) for v in focus], "focus_from": "given" if o.focus else "auto",
         "crop": [x0, y0, bw, bh], "upscaled": upscaled,
         "output": out_path.name, "output_size": [out.shape[1], out.shape[0]],

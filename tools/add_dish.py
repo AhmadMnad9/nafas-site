@@ -5,7 +5,7 @@ Run tools/dish_photo.py first; it leaves the photo at src/photos/<slug>.jpg.
 
 usage
   python3 tools/add_dish.py --slug SLUG --name "اسم الطبق" --desc "وصف قصير" \
-      [--cook "اسم المطبخ"] [--alt "وصف الصورة"] [--replace OLD_SLUG] [--dry-run]
+      [--cook "اسم المطبخ"] [--alt "وصف الصورة"] [--replace OLD_SLUG] [--ai] [--dry-run]
 
 Where the card goes
   --replace OLD_SLUG   takes that card's place.
@@ -15,6 +15,8 @@ Where the card goes
                        When every card is a real photo, the script stops and asks for --replace.
 --cook is only for dishes from a Nafas cook: the card then says «من مطبخ …», and the About
 page says which photos come from our cooks' kitchens.
+--ai marks a photo whose camera angle was changed with AI from a real photo of the same dish.
+The About page then says so, and the homepage promise about photos is worded to stay true.
 """
 import argparse
 import json
@@ -55,6 +57,7 @@ def main():
     ap.add_argument("--cook")
     ap.add_argument("--alt")
     ap.add_argument("--replace")
+    ap.add_argument("--ai", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     o = ap.parse_args()
 
@@ -76,6 +79,9 @@ def main():
     card = {"slug": o.slug, "name": o.name.strip(), "desc": o.desc.strip(), "kind": "real"}
     if o.cook:
         card["cook"] = o.cook.strip()
+    if o.ai:
+        card["ai"] = True
+        photos[o.slug]["ai"] = True
 
     removed = []
     target = None
